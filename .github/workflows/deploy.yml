@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DEPLOY_DIR: ~/darkvoid
+  DEPLOY_DIR: darkvoid
 
 jobs:
   test:
@@ -74,7 +74,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
           source: docker-compose.prod.yml
-          target: ${{ env.DEPLOY_DIR }}
+          target: $HOME/${{ env.DEPLOY_DIR }}
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
@@ -83,9 +83,9 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
-          envs: DEPLOY_DIR
           script: |
-            cd $DEPLOY_DIR
+            set -e
+            cd $HOME/darkvoid
 
             # Login to GitHub Container Registry
             echo "${{ secrets.GH_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -96,3 +96,39 @@ jobs:
 
             # Cleanup old images
             docker image prune -f
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            set -e
+            cd $HOME/darkvoid
+
+            echo "Waiting for all containers to be healthy..."
+            timeout 120 bash -c '
+              while true; do
+                UNHEALTHY=$(docker compose -f docker-compose.prod.yml ps --format json | grep -c -v '"'"'"healthy"'"'"' || true)
+                TOTAL=$(docker compose -f docker-compose.prod.yml ps --format json | wc -l)
+                HEALTHY=$((TOTAL - UNHEALTHY))
+                echo "  $HEALTHY/$TOTAL healthy"
+                if [ "$UNHEALTHY" -eq 0 ] && [ "$TOTAL" -gt 0 ]; then
+                  break
+                fi
+                sleep 5
+              done
+            '
+
+            echo ""
+            echo "=== Container Status ==="
+            docker compose -f docker-compose.prod.yml ps
+
+            echo ""
+            echo "=== Health Check ==="
+            curl -sf http://localhost:${SERVER_PORT:-8080}/health
+
+            echo ""
+            echo "Deployment verified successfully."
