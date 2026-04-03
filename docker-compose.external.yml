@@ -1,0 +1,18 @@
+# App only — uses external PostgreSQL and Redis
+# Usage: docker compose -f docker-compose.external.yml up -d
+#
+# Set all DB_* and REDIS_* vars in .env to point to your external services.
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    env_file:
+      - .env
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  uploads:

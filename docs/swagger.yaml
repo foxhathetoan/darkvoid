@@ -1,0 +1,2840 @@
+basePath: /api/v1
+definitions:
+  dto.ActorResponse:
+    properties:
+      avatar_url:
+        type: string
+      display_name:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.AdminBroadcastNotificationResponse:
+    properties:
+      sent_count:
+        example: 980
+        type: integer
+    type: object
+  dto.AdminListUsersResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.AdminUserResponse'
+        type: array
+      limit:
+        description: Max items per page
+        example: 20
+        type: integer
+      offset:
+        description: Number of items to skip
+        example: 0
+        type: integer
+      total:
+        description: Total number of records
+        example: 100
+        type: integer
+    type: object
+  dto.AdminSendNotificationRequest:
+    properties:
+      message:
+        example: Scheduled maintenance on 2026-04-01 at 02:00 UTC
+        type: string
+    type: object
+  dto.AdminSetUserStatusRequest:
+    properties:
+      is_active:
+        example: false
+        type: boolean
+    type: object
+  dto.AdminStatsResponse:
+    properties:
+      active_users:
+        example: 980
+        type: integer
+      inactive_users:
+        example: 44
+        type: integer
+      total_posts:
+        example: 5200
+        type: integer
+      total_roles:
+        example: 3
+        type: integer
+      total_users:
+        example: 1024
+        type: integer
+    type: object
+  dto.AdminUserResponse:
+    properties:
+      avatar_url:
+        type: string
+      created_at:
+        example: "2024-01-15T10:30:00Z"
+        type: string
+      display_name:
+        example: John Doe
+        type: string
+      email:
+        example: john@example.com
+        type: string
+      follower_count:
+        example: 120
+        type: integer
+      following_count:
+        example: 80
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      updated_at:
+        type: string
+      username:
+        example: johndoe
+        type: string
+    type: object
+  dto.AssignRoleRequest:
+    properties:
+      role_id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  dto.AuthorResponse:
+    properties:
+      avatar_url:
+        type: string
+      display_name:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.ChangePasswordRequest:
+    properties:
+      new_password:
+        type: string
+      old_password:
+        type: string
+    type: object
+  dto.CommentListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.CommentResponse'
+        type: array
+      limit:
+        description: Max items per page
+        example: 20
+        type: integer
+      offset:
+        description: Number of items to skip
+        example: 0
+        type: integer
+      total:
+        description: Total number of records
+        example: 100
+        type: integer
+    type: object
+  dto.CommentResponse:
+    properties:
+      author:
+        $ref: '#/definitions/dto.AuthorResponse'
+      author_id:
+        type: string
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_liked:
+        type: boolean
+      like_count:
+        type: integer
+      media:
+        items:
+          $ref: '#/definitions/dto.MediaResponse'
+        type: array
+      mentions:
+        items:
+          $ref: '#/definitions/dto.MentionResponse'
+        type: array
+      parent_id:
+        type: string
+      post_id:
+        type: string
+      replies:
+        items:
+          $ref: '#/definitions/dto.CommentResponse'
+        type: array
+      reply_count:
+        type: integer
+    type: object
+  dto.CreateCommentRequest:
+    properties:
+      content:
+        example: Great post!
+        type: string
+      media_keys:
+        example:
+        - '["media/abc123.jpg"]'
+        items:
+          type: string
+        type: array
+      mention_user_ids:
+        example:
+        - '["uuid-of-alice"]'
+        items:
+          type: string
+        type: array
+      parent_id:
+        example: "null"
+        type: string
+    type: object
+  dto.CreatePostRequest:
+    properties:
+      content:
+        example: Hello @alice!
+        type: string
+      media_keys:
+        example:
+        - '["media/abc123.jpg"]'
+        items:
+          type: string
+        type: array
+      mention_user_ids:
+        example:
+        - '["uuid-of-alice"]'
+        items:
+          type: string
+        type: array
+      tags:
+        example:
+        - '["golang"'
+        - '"webdev"]'
+        items:
+          type: string
+        type: array
+      visibility:
+        example: public
+        type: string
+    type: object
+  dto.CreateRoleRequest:
+    properties:
+      description:
+        example: Can moderate content
+        type: string
+      name:
+        example: moderator
+        type: string
+    type: object
+  dto.FollowListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.FollowResponse'
+        type: array
+      pagination:
+        $ref: '#/definitions/pagination.PaginationResponse'
+    type: object
+  dto.FollowResponse:
+    properties:
+      followed_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.HashtagPostListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.PostResponse'
+        type: array
+      hashtag:
+        type: string
+      next_cursor:
+        type: string
+    type: object
+  dto.HashtagSearchResponse:
+    properties:
+      prefix:
+        type: string
+      results:
+        items:
+          type: string
+        type: array
+    type: object
+  dto.ListRolesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.RoleResponse'
+        type: array
+    type: object
+  dto.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.LoginResponse:
+    properties:
+      access_expires_in:
+        type: integer
+      access_token:
+        type: string
+      refresh_expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+      user:
+        $ref: '#/definitions/dto.UserResponse'
+    type: object
+  dto.LogoutRequest:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  dto.MediaResponse:
+    properties:
+      id:
+        type: string
+      media_type:
+        type: string
+      position:
+        type: integer
+      url:
+        type: string
+    type: object
+  dto.MentionResponse:
+    properties:
+      display_name:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.NotificationListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.NotificationResponse'
+        type: array
+      next_cursor:
+        type: string
+    type: object
+  dto.NotificationResponse:
+    properties:
+      actor:
+        $ref: '#/definitions/dto.ActorResponse'
+      created_at:
+        type: string
+      group_actors:
+        items:
+          $ref: '#/definitions/dto.ActorResponse'
+        type: array
+      group_count:
+        type: integer
+      id:
+        type: string
+      is_read:
+        type: boolean
+      message:
+        type: string
+      secondary_id:
+        type: string
+      target_id:
+        type: string
+      type:
+        type: string
+    type: object
+  dto.PostListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.PostResponse'
+        type: array
+      next_cursor:
+        type: string
+    type: object
+  dto.PostResponse:
+    properties:
+      author:
+        $ref: '#/definitions/dto.AuthorResponse'
+      author_id:
+        type: string
+      comment_count:
+        type: integer
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_liked:
+        type: boolean
+      like_count:
+        type: integer
+      media:
+        items:
+          $ref: '#/definitions/dto.MediaResponse'
+        type: array
+      mentions:
+        items:
+          $ref: '#/definitions/dto.MentionResponse'
+        type: array
+      tags:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      visibility:
+        type: string
+    type: object
+  dto.PostResult:
+    properties:
+      author_id:
+        type: string
+      comment_count:
+        type: integer
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      like_count:
+        type: integer
+    type: object
+  dto.ProfileResponse:
+    properties:
+      avatar_url:
+        type: string
+      bio:
+        type: string
+      cover_url:
+        type: string
+      display_name:
+        type: string
+      follower_count:
+        type: integer
+      following_count:
+        type: integer
+      id:
+        type: string
+      is_following:
+        type: boolean
+      joined_at:
+        type: string
+      location:
+        type: string
+      username:
+        type: string
+      website:
+        type: string
+    type: object
+  dto.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  dto.RefreshTokenResponse:
+    properties:
+      access_expires_in:
+        type: integer
+      access_token:
+        type: string
+      refresh_expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+    type: object
+  dto.RegisterRequest:
+    properties:
+      display_name:
+        example: John Doe
+        type: string
+      email:
+        example: john@example.com
+        type: string
+      password:
+        example: SecurePass123
+        type: string
+      username:
+        example: johndoe
+        type: string
+    type: object
+  dto.RegisterResponse:
+    properties:
+      access_expires_in:
+        type: integer
+      access_token:
+        type: string
+      refresh_expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+      user_id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  dto.RoleResponse:
+    properties:
+      created_at:
+        example: "2024-01-15T10:30:00Z"
+        type: string
+      description:
+        example: Can moderate content
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: moderator
+        type: string
+      updated_at:
+        example: "2024-02-01T08:00:00Z"
+        type: string
+    type: object
+  dto.SearchResponse:
+    properties:
+      hashtags:
+        items:
+          type: string
+        type: array
+      posts:
+        items:
+          $ref: '#/definitions/dto.PostResult'
+        type: array
+      query:
+        type: string
+      type:
+        type: string
+      users:
+        items:
+          $ref: '#/definitions/dto.UserResult'
+        type: array
+    type: object
+  dto.TrendingHashtagListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.TrendingHashtagResponse'
+        type: array
+    type: object
+  dto.TrendingHashtagResponse:
+    properties:
+      count:
+        type: integer
+      name:
+        type: string
+    type: object
+  dto.UnreadCountResponse:
+    properties:
+      unread_count:
+        type: integer
+    type: object
+  dto.UpdatePostRequest:
+    properties:
+      content:
+        example: Updated content
+        type: string
+      mention_user_ids:
+        example:
+        - '["uuid-of-alice"]'
+        items:
+          type: string
+        type: array
+      tags:
+        example:
+        - '["golang"'
+        - '"webdev"]'
+        items:
+          type: string
+        type: array
+      visibility:
+        example: followers
+        type: string
+    type: object
+  dto.UpdateProfileRequest:
+    properties:
+      bio:
+        example: Software engineer & coffee lover
+        type: string
+      display_name:
+        example: Nguyen Van A
+        type: string
+      location:
+        example: Ha Noi, Viet Nam
+        type: string
+      website:
+        example: https://example.com
+        type: string
+    type: object
+  dto.UpdateUserRequest:
+    properties:
+      email:
+        example: john.updated@example.com
+        type: string
+    type: object
+  dto.UserResponse:
+    properties:
+      avatar_url:
+        example: https://cdn.example.com/avatars/abc123.jpg
+        type: string
+      bio:
+        type: string
+      cover_url:
+        example: https://cdn.example.com/covers/def456.jpg
+        type: string
+      created_at:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      display_name:
+        example: John Doe
+        type: string
+      email:
+        example: john@example.com
+        type: string
+      follower_count:
+        example: 128
+        type: integer
+      following_count:
+        example: 64
+        type: integer
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      is_following:
+        type: boolean
+      location:
+        type: string
+      updated_at:
+        example: "2024-01-02T00:00:00Z"
+        type: string
+      username:
+        example: johndoe
+        type: string
+      website:
+        type: string
+    type: object
+  dto.UserResult:
+    properties:
+      avatar_url:
+        type: string
+      display_name:
+        type: string
+      follower_count:
+        type: integer
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.UserRolesResponse:
+    properties:
+      roles:
+        items:
+          $ref: '#/definitions/dto.RoleResponse'
+        type: array
+      user_id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  errors.ErrorDetail:
+    properties:
+      code:
+        type: string
+      details:
+        additionalProperties: {}
+        type: object
+      message:
+        type: string
+    type: object
+  errors.ErrorResponse:
+    properties:
+      error:
+        $ref: '#/definitions/errors.ErrorDetail'
+    type: object
+  handler.DiscoverResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/handler.postResponse'
+        type: array
+      next_cursor:
+        type: string
+    type: object
+  handler.FeedItemResponse:
+    properties:
+      author:
+        $ref: '#/definitions/handler.authorResponse'
+      author_id:
+        type: string
+      comment_count:
+        type: integer
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_liked:
+        type: boolean
+      like_count:
+        type: integer
+      media:
+        items:
+          $ref: '#/definitions/handler.mediaResponse'
+        type: array
+      score:
+        type: number
+      source:
+        type: string
+      updated_at:
+        type: string
+      visibility:
+        type: string
+    type: object
+  handler.FeedResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/handler.FeedItemResponse'
+        type: array
+      next_cursor:
+        type: string
+    type: object
+  handler.UploadResponse:
+    properties:
+      key:
+        example: media/550e8400-e29b-41d4-a716-446655440000.jpg
+        type: string
+      media_type:
+        example: image
+        type: string
+      url:
+        example: http://localhost:8080/static/media/550e8400.jpg
+        type: string
+    type: object
+  handler.authorResponse:
+    properties:
+      avatar_url:
+        type: string
+      display_name:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  handler.mediaResponse:
+    properties:
+      id:
+        type: string
+      media_type:
+        type: string
+      position:
+        type: integer
+      url:
+        type: string
+    type: object
+  handler.postResponse:
+    properties:
+      author:
+        $ref: '#/definitions/handler.authorResponse'
+      author_id:
+        type: string
+      comment_count:
+        type: integer
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_liked:
+        type: boolean
+      like_count:
+        type: integer
+      media:
+        items:
+          $ref: '#/definitions/handler.mediaResponse'
+        type: array
+      updated_at:
+        type: string
+      visibility:
+        type: string
+    type: object
+  httputil.MessageResponse:
+    properties:
+      message:
+        example: Operation completed successfully
+        type: string
+    type: object
+  pagination.PaginationResponse:
+    properties:
+      limit:
+        description: Max items per page
+        example: 20
+        type: integer
+      offset:
+        description: Number of items to skip
+        example: 0
+        type: integer
+      total:
+        description: Total number of records
+        example: 100
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@darkvoid.com
+    name: API Support
+  description: Social network platform API using bounded context architecture
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: DarkVoid API
+  version: "1.0"
+paths:
+  /admin/notifications/broadcast:
+    post:
+      consumes:
+      - application/json
+      description: Sends a system announcement notification to all active users.
+      operationId: adminBroadcastNotification
+      parameters:
+      - description: Notification payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AdminSendNotificationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.AdminBroadcastNotificationResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Broadcast notification to all users
+      tags:
+      - admin
+  /admin/notifications/users/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Sends a system announcement notification to a specific user.
+      operationId: adminSendNotificationToUser
+      parameters:
+      - description: Target user UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Notification payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AdminSendNotificationRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Send notification to a user
+      tags:
+      - admin
+  /admin/roles:
+    get:
+      description: Returns all roles defined in the system.
+      operationId: adminListRoles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ListRolesResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List all roles
+      tags:
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Creates a new role that can be assigned to users.
+      operationId: adminCreateRole
+      parameters:
+      - description: Role data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.RoleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a role
+      tags:
+      - admin
+  /admin/stats:
+    get:
+      description: Returns basic counts for users and roles.
+      operationId: adminGetStats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.AdminStatsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get platform statistics
+      tags:
+      - admin
+  /admin/users:
+    get:
+      description: Returns a paginated list of all users. Supports filtering by status
+        and search query.
+      operationId: adminListUsers
+      parameters:
+      - description: Max items per page (default 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Number of items to skip
+        in: query
+        name: offset
+        type: integer
+      - description: Search by username, email, or display name
+        in: query
+        name: q
+        type: string
+      - description: Filter by active status (omit for all)
+        in: query
+        name: is_active
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.AdminListUsersResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List all users
+      tags:
+      - admin
+  /admin/users/{id}:
+    get:
+      description: Returns the admin view of a single user including email and active
+        status.
+      operationId: adminGetUser
+      parameters:
+      - description: User UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.AdminUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user details
+      tags:
+      - admin
+  /admin/users/{id}/roles:
+    get:
+      description: Returns all roles currently assigned to the specified user.
+      operationId: adminGetUserRoles
+      parameters:
+      - description: User UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserRolesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get roles for a user
+      tags:
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Grants a role to the specified user.
+      operationId: adminAssignRole
+      parameters:
+      - description: User UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Role to assign
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AssignRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "409":
+          description: User already has this role
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Assign a role to a user
+      tags:
+      - admin
+  /admin/users/{id}/roles/{roleId}:
+    delete:
+      description: Revokes a role from the specified user.
+      operationId: adminRemoveRole
+      parameters:
+      - description: User UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Role UUID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a role from a user
+      tags:
+      - admin
+  /admin/users/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: Sets the active status of a user account. Deactivated users cannot
+        log in.
+      operationId: adminSetUserStatus
+      parameters:
+      - description: User UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Status payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AdminSetUserStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Activate or deactivate a user
+      tags:
+      - admin
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Authenticate user with username and password, returns access and refresh tokens.
+        Web clients (default): refresh_token is set as an HttpOnly cookie; omitted from response body.
+        Mobile clients (X-Client-Type: mobile): refresh_token is returned in the response body.
+      operationId: login
+      parameters:
+      - description: Set to 'mobile' to receive refresh_token in response body instead
+          of HttpOnly cookie
+        in: header
+        name: X-Client-Type
+        type: string
+      - description: Login credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.LoginResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Invalid credentials
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Account deactivated
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: User login
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Revoke a refresh token to logout user from current session.
+        Web clients (default): refresh_token is read from the HttpOnly cookie automatically; request body is not required. Cookie is cleared on success.
+        Mobile clients (X-Client-Type: mobile): refresh_token must be provided in the request body.
+      operationId: logout
+      parameters:
+      - description: Set to 'mobile' to send refresh_token in request body
+        in: header
+        name: X-Client-Type
+        type: string
+      - description: Refresh token to revoke (mobile clients only)
+        in: body
+        name: token
+        schema:
+          $ref: '#/definitions/dto.LogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Logged out successfully
+          schema:
+            $ref: '#/definitions/httputil.MessageResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Missing refresh token cookie (web clients)
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: User logout
+      tags:
+      - auth
+  /auth/logout-all:
+    post:
+      description: Revoke all refresh tokens for the authenticated user
+      operationId: logoutAllSessions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All sessions logged out successfully
+          schema:
+            $ref: '#/definitions/httputil.MessageResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Logout all sessions
+      tags:
+      - auth
+  /auth/me:
+    get:
+      description: Get the authenticated user's information
+      operationId: getMe
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - auth
+  /auth/password:
+    put:
+      consumes:
+      - application/json
+      description: Change the authenticated user's password (requires old password)
+      operationId: changePassword
+      parameters:
+      - description: Password change data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password changed successfully
+          schema:
+            $ref: '#/definitions/httputil.MessageResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Invalid old password or not authenticated
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Change password
+      tags:
+      - auth
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Exchange a valid refresh token for a new access token and refresh token.
+        Web clients (default): refresh_token is read from the HttpOnly cookie automatically; request body is not required.
+        Mobile clients (X-Client-Type: mobile): refresh_token must be provided in the request body.
+      operationId: refreshToken
+      parameters:
+      - description: Set to 'mobile' to send/receive refresh_token in request/response
+          body
+        in: header
+        name: X-Client-Type
+        type: string
+      - description: Refresh token (mobile clients only)
+        in: body
+        name: token
+        schema:
+          $ref: '#/definitions/dto.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.RefreshTokenResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Invalid or expired refresh token
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Refresh access token
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Create a new user account and return tokens (user is immediately logged in).
+        Web clients (default): refresh_token is set as an HttpOnly cookie; omitted from response body.
+        Mobile clients (X-Client-Type: mobile): refresh_token is returned in the response body.
+      operationId: register
+      parameters:
+      - description: Set to 'mobile' to receive refresh_token in response body instead
+          of HttpOnly cookie
+        in: header
+        name: X-Client-Type
+        type: string
+      - description: Registration data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.RegisterResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "409":
+          description: Username or email already exists
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Register a new account
+      tags:
+      - auth
+  /discover:
+    get:
+      description: Get a cursor-paginated discovery feed of public posts. No authentication
+        required; if a valid token is provided, is_liked is populated.
+      operationId: getDiscover
+      parameters:
+      - description: Pagination cursor from previous response
+        in: query
+        name: cursor
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.DiscoverResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Discover posts
+      tags:
+      - feed
+  /feed:
+    get:
+      description: Get a scored, paginated feed of posts mixed from followed users
+        and trending posts
+      operationId: getFeed
+      parameters:
+      - description: Pagination cursor from previous response
+        in: query
+        name: cursor
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.FeedResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get feed
+      tags:
+      - feed
+  /hashtags/{name}/posts:
+    get:
+      description: Returns cursor-paginated public posts for a hashtag
+      operationId: getPostsByHashtag
+      parameters:
+      - description: 'Hashtag name (without #)'
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: Pagination cursor
+        in: query
+        name: cursor
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.HashtagPostListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Posts by hashtag
+      tags:
+      - hashtags
+  /hashtags/search:
+    get:
+      description: Returns up to 10 hashtag names that start with the given prefix
+        (min 2 chars). Results cached 2 minutes.
+      operationId: searchHashtags
+      parameters:
+      - description: 'Prefix to search (min 2 chars, without #)'
+        in: query
+        name: q
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.HashtagSearchResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "429":
+          description: Too Many Requests
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Search hashtags by prefix
+      tags:
+      - hashtags
+  /hashtags/trending:
+    get:
+      description: Returns the top trending hashtags based on post usage in the last
+        24 hours
+      operationId: getTrendingHashtags
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.TrendingHashtagListResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Trending hashtags
+      tags:
+      - hashtags
+  /me:
+    get:
+      description: Get the authenticated user's social profile
+      operationId: getMyProfile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get my profile
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update the authenticated user's social profile fields
+      operationId: updateMyProfile
+      parameters:
+      - description: Profile update data
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update my profile
+      tags:
+      - users
+  /me/avatar:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Upload a new avatar image for the authenticated user
+      operationId: uploadAvatar
+      parameters:
+      - description: Avatar image (JPEG or PNG, max 10MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "400":
+          description: Invalid file
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Upload avatar
+      tags:
+      - users
+  /me/cover:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Upload a new cover image for the authenticated user
+      operationId: uploadCover
+      parameters:
+      - description: Cover image (JPEG or PNG, max 10MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "400":
+          description: Invalid file
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Upload cover image
+      tags:
+      - users
+  /media/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: |-
+        Upload an image or video file. Returns the storage key and public URL.
+        Supported types: image/jpeg, image/png, image/webp, image/gif, video/mp4, video/webm
+        Max size: 10 MB for images, 100 MB for videos.
+      operationId: uploadMedia
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.UploadResponse'
+        "400":
+          description: Missing file
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "413":
+          description: File too large
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "415":
+          description: Unsupported media type
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Upload a media file
+      tags:
+      - media
+  /notifications:
+    get:
+      description: Get a cursor-paginated list of notifications for the authenticated
+        user
+      operationId: getNotifications
+      parameters:
+      - description: Pagination cursor from previous response
+        in: query
+        name: cursor
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.NotificationListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get notifications
+      tags:
+      - notifications
+  /notifications/{notificationID}/read:
+    post:
+      description: Mark a single notification as read
+      operationId: markNotificationAsRead
+      parameters:
+      - description: Notification ID (UUID)
+        in: path
+        name: notificationID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Mark notification as read
+      tags:
+      - notifications
+  /notifications/read-all:
+    post:
+      description: Mark all notifications as read for the authenticated user
+      operationId: markAllNotificationsAsRead
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Mark all notifications as read
+      tags:
+      - notifications
+  /notifications/stream:
+    get:
+      description: Open a Server-Sent Events stream for real-time notifications. Pass
+        JWT via Authorization header or ?token= query parameter.
+      operationId: streamNotifications
+      parameters:
+      - description: JWT access token (alternative to Authorization header)
+        in: query
+        name: token
+        type: string
+      produces:
+      - text/event-stream
+      responses:
+        "200":
+          description: SSE stream
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "501":
+          description: SSE not available (Redis disabled)
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Stream notifications (SSE)
+      tags:
+      - notifications
+  /notifications/unread-count:
+    get:
+      description: Get the number of unread notifications for the authenticated user
+      operationId: getUnreadCount
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UnreadCountResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get unread notification count
+      tags:
+      - notifications
+  /posts:
+    post:
+      consumes:
+      - application/json
+      description: Create a new post with optional media attachments
+      operationId: createPost
+      parameters:
+      - description: Post data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.PostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a post
+      tags:
+      - posts
+  /posts/{postID}:
+    delete:
+      description: Soft-delete an owned post
+      operationId: deletePost
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a post
+      tags:
+      - posts
+    get:
+      description: Get a post by ID
+      operationId: getPost
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Get a post
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: Update content or visibility of an owned post
+      operationId: updatePost
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      - description: Updated fields
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a post
+      tags:
+      - posts
+  /posts/{postID}/comments:
+    get:
+      description: Get a paginated list of top-level comments for a post
+      operationId: getComments
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset (default 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CommentListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Get comments
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      description: Add a comment (or reply) to a post
+      operationId: createComment
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      - description: Comment data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateCommentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a comment
+      tags:
+      - comments
+  /posts/{postID}/comments/{commentID}:
+    delete:
+      description: Soft-delete an owned comment
+      operationId: deleteComment
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      - description: Comment ID (UUID)
+        in: path
+        name: commentID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a comment
+      tags:
+      - comments
+  /posts/{postID}/comments/{commentID}/like:
+    post:
+      description: Like the comment if not yet liked, unlike if already liked. Returns
+        the new like state.
+      operationId: toggleCommentLike
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      - description: Comment ID (UUID)
+        in: path
+        name: commentID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'liked: true if now liked, false if now unliked'
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Toggle like on a comment
+      tags:
+      - comments
+  /posts/{postID}/comments/{commentID}/replies:
+    get:
+      description: Get a paginated list of replies for a comment
+      operationId: getReplies
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      - description: Comment ID (UUID)
+        in: path
+        name: commentID
+        required: true
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset (default 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CommentListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Get replies
+      tags:
+      - comments
+  /posts/{postID}/like:
+    post:
+      description: Like the post if not yet liked, unlike if already liked. Returns
+        the new like state.
+      operationId: toggleLike
+      parameters:
+      - description: Post ID (UUID)
+        in: path
+        name: postID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'liked: true if now liked, false if now unliked'
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "400":
+          description: Invalid post ID or self-like
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Toggle like on a post
+      tags:
+      - posts
+  /search:
+    get:
+      description: |-
+        Search across users, posts, and hashtags in a single request.
+        Use type=all (default) to fetch top results from every category,
+        or specify type=users|posts|hashtags for a focused search.
+      operationId: search
+      parameters:
+      - description: Search query (min 2 chars)
+        in: query
+        name: q
+        required: true
+        type: string
+      - description: 'Entity type: all | users | posts | hashtags (default: all)'
+        in: query
+        name: type
+        type: string
+      - description: Max results per category (default 20, max 50; ignored for type=all)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination (ignored for type=all)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SearchResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Unified search
+      tags:
+      - search
+  /users/{userID}/posts:
+    get:
+      description: Get a cursor-paginated list of posts by a specific user
+      operationId: getUserPosts
+      parameters:
+      - description: Author user ID (UUID)
+        in: path
+        name: userID
+        required: true
+        type: string
+      - description: Pagination cursor from previous response
+        in: query
+        name: cursor
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      - description: 'Filter by visibility: public, followers, private'
+        in: query
+        name: visibility
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PostListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Get user posts
+      tags:
+      - posts
+  /users/{userKey}:
+    delete:
+      description: Soft delete a user account (sets is_active to false) by UUID or
+        username (with ?by=username)
+      operationId: deactivateUser
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User deactivated successfully
+          schema:
+            $ref: '#/definitions/httputil.MessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Deactivate user
+      tags:
+      - users
+    get:
+      description: Retrieve a user's information by UUID or username (with ?by=username)
+      operationId: getUser
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "400":
+          description: Invalid user identifier
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user by ID or username
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update user account fields (e.g. email) by UUID or username (with
+        ?by=username)
+      operationId: updateUser
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      - description: User update data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "409":
+          description: Email already exists
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user account
+      tags:
+      - users
+  /users/{userKey}/follow:
+    delete:
+      description: Unfollow a user by UUID or username (with ?by=username). No-op
+        if not following.
+      operationId: unfollowUser
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Invalid user identifier or self-unfollow
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Unfollow a user
+      tags:
+      - users
+    post:
+      description: Follow a user by UUID or username (with ?by=username). No-op if
+        already following.
+      operationId: followUser
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Invalid user identifier or self-follow
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Follow a user
+      tags:
+      - users
+  /users/{userKey}/followers:
+    get:
+      description: Get a paginated list of users who follow the specified user by
+        UUID or username (with ?by=username)
+      operationId: getFollowers
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset (default 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FollowListResponse'
+        "400":
+          description: Invalid user identifier
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Get followers
+      tags:
+      - users
+  /users/{userKey}/following:
+    get:
+      description: Get a paginated list of users that the specified user follows by
+        UUID or username (with ?by=username)
+      operationId: getFollowing
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      - description: Max results (default 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset (default 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FollowListResponse'
+        "400":
+          description: Invalid user identifier
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      summary: Get following
+      tags:
+      - users
+  /users/{userKey}/profile:
+    get:
+      description: Get a user's public social profile by UUID or username (with ?by=username).
+        Optionally enriches is_following when the viewer is authenticated.
+      operationId: getUserProfile
+      parameters:
+      - description: User ID (UUID) or username
+        in: path
+        name: userKey
+        required: true
+        type: string
+      - description: Resolve key as 'username' instead of UUID
+        enum:
+        - username
+        in: query
+        name: by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProfileResponse'
+        "400":
+          description: Invalid user identifier
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,86 @@
+version: "2"
+
+run:
+  timeout: 5m
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+linters:
+  default: none
+  enable:
+    # Bugs & correctness
+    - errcheck
+    - govet
+    - staticcheck
+    - ineffassign
+    - bodyclose
+    - noctx
+    - rowserrcheck
+    - sqlclosecheck
+    - durationcheck
+
+    # Style & conventions
+    - revive
+    - unconvert
+    - unparam
+    - unused
+    - misspell
+    - prealloc
+
+    # Security
+    - gosec
+    - nilnil
+    - makezero
+    - mirror
+
+  settings:
+    revive:
+      rules:
+        - name: exported
+          disabled: true
+        - name: unexported-return
+          disabled: true
+
+    gosec:
+      excludes:
+        - G104 # unhandled errors — errcheck covers this
+        - G304 # file path from variable — we control paths
+
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+
+exclusions:
+  # sqlc-generated files
+  paths:
+    - "internal/feature/.*/db/.*\\.go"
+    - ".*_test\\.go"
+
+  rules:
+    # Allow dot imports in test files
+    - linters:
+        - revive
+      path: "_test\\.go"
+      text: "dot-imports"
+
+    # Test files use httptest.NewRequest which noctx flags; context is irrelevant in tests
+    - linters:
+        - noctx
+      path: _test\.go
+
+    # Allow unused params in interface implementations
+    - linters:
+        - unparam
+      text: "always receives"
+
+output:
+  formats:
+    text:
+      print-linter-name: true
+      color: true
+  sort-order:
+    - file
