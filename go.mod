@@ -10,8 +10,8 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.19.1
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.8.0
-	github.com/jarviisha/dike/pkg/client v0.0.0
-	github.com/jarviisha/dike/proto v0.0.0
+	github.com/jarviisha/dike/pkg/client v0.0.1
+	github.com/jarviisha/dike/proto v0.0.1
 	github.com/joho/godotenv v1.5.1
 	github.com/redis/go-redis/v9 v9.18.0
 	github.com/swaggo/files v1.0.1
@@ -55,7 +55,3 @@ require (
 	google.golang.org/grpc v1.79.2 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
-
-replace github.com/jarviisha/dike/pkg/client => /home/jarviisha/development/dike/pkg/client
-
-replace github.com/jarviisha/dike/proto => /home/jarviisha/development/dike/proto
